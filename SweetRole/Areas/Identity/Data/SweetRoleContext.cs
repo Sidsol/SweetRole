@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SweetRole.Areas.Identity.Data;
 
+
 namespace SweetRole.Models
 {
     public class SweetRoleContext : IdentityDbContext<SweetRoleUser>
     {
+        public DbSet<Character> Characters { get; set; }
         public SweetRoleContext(DbContextOptions<SweetRoleContext> options)
             : base(options)
         {
