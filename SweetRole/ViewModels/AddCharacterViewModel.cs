@@ -5,22 +5,16 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SweetRole.Models
+namespace SweetRole.ViewModels
 {
-    public class Character
+    public class AddCharacterViewModel
     {
-
-        public int CharacterId { get; set; }
-
-        [Required]
+        [Required(ErrorMessage ="Characters must have a name")]
+        [Display(Name = "Characters Name")]
         public string Name { get; set; }
 
-        //[DataType(DataType.Date)]
+        //[Display(Name = "Date of Birth")]
         //public DateTime DateOfBirth { get; set; }
-
-        [Required]
-        public string SweetRoleUserId { get; set; }
-        public virtual SweetRoleUser SweetRoleUser { get; set; }
 
     }
 }

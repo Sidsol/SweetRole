@@ -2,25 +2,25 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace SweetRole.Models
 {
-    public class Character
+    public class Story
     {
-
-        public int CharacterId { get; set; }
+        public int StoryId { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string Title { get; set; }
 
-        //[DataType(DataType.Date)]
-        //public DateTime DateOfBirth { get; set; }
+        public DateTime DateCreated { get; set; }
+
+        public string Genre { get; set; }
 
         [Required]
         public string SweetRoleUserId { get; set; }
         public virtual SweetRoleUser SweetRoleUser { get; set; }
-
     }
 }

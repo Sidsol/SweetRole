@@ -13,6 +13,8 @@ namespace SweetRole.Models
     public class SweetRoleContext : IdentityDbContext<SweetRoleUser>
     {
         public DbSet<Character> Characters { get; set; }
+        public DbSet<Story> Stories { get; set; }
+
         public SweetRoleContext(DbContextOptions<SweetRoleContext> options)
             : base(options)
         {
