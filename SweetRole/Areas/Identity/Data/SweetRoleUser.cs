@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using SweetRole.Models;
 
 namespace SweetRole.Areas.Identity.Data
 {
@@ -13,5 +14,7 @@ namespace SweetRole.Areas.Identity.Data
         public string Name { get; set; }
         [PersonalData]
         public DateTime DOB { get; set; }
+
+        public virtual ICollection<Character> Characters { get; set; }
     }
 }

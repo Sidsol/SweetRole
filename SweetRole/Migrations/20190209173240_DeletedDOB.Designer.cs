@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SweetRole.Models;
 
 namespace SweetRole.Migrations
 {
     [DbContext(typeof(SweetRoleContext))]
-    partial class SweetRoleContextModelSnapshot : ModelSnapshot
+    [Migration("20190209173240_DeletedDOB")]
+    partial class DeletedDOB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -207,29 +209,6 @@ namespace SweetRole.Migrations
                     b.ToTable("Characters");
                 });
 
-            modelBuilder.Entity("SweetRole.Models.Story", b =>
-                {
-                    b.Property<int>("StoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<string>("Genre");
-
-                    b.Property<string>("SweetRoleUserId")
-                        .IsRequired();
-
-                    b.Property<string>("Title")
-                        .IsRequired();
-
-                    b.HasKey("StoryId");
-
-                    b.HasIndex("SweetRoleUserId");
-
-                    b.ToTable("Stories");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -279,14 +258,6 @@ namespace SweetRole.Migrations
                 {
                     b.HasOne("SweetRole.Areas.Identity.Data.SweetRoleUser", "SweetRoleUser")
                         .WithMany("Characters")
-                        .HasForeignKey("SweetRoleUserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("SweetRole.Models.Story", b =>
-                {
-                    b.HasOne("SweetRole.Areas.Identity.Data.SweetRoleUser", "SweetRoleUser")
-                        .WithMany()
                         .HasForeignKey("SweetRoleUserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
