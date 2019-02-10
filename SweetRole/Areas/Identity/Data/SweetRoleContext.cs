@@ -14,6 +14,7 @@ namespace SweetRole.Models
     {
         public DbSet<Character> Characters { get; set; }
         public DbSet<Story> Stories { get; set; }
+        public DbSet<Scene> Scenes { get; set; }
 
         public SweetRoleContext(DbContextOptions<SweetRoleContext> options)
             : base(options)
