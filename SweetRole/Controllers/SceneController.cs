@@ -148,7 +148,7 @@ namespace SweetRole.Controllers
         }
 
         // POST: Scene/Delete/5
-        [HttpPost]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

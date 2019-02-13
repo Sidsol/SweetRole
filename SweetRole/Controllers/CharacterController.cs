@@ -110,7 +110,6 @@ namespace SweetRole.Controllers
             {
                 try
                 {
-                    // TODO: Add update logic here
                     _context.Update(character);
                 await _context.SaveChangesAsync();
             }
