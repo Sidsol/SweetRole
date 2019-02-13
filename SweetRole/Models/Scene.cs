@@ -7,7 +7,7 @@ namespace SweetRole.Models
 {
     public class Scene
     {
-        public int ID { get; set; }
+        public int SceneId { get; set; }
         public string Name { get; set; }
         public string Setting { get; set; }
 

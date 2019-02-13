@@ -1,93 +1,168 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using SweetRole.Models;
+using SweetRole.ViewModels;
 
 namespace SweetRole.Controllers
 {
     public class SceneController : Controller
     {
-        // GET: Scene
-        public ActionResult Index()
+        private readonly SweetRoleContext _context;
+
+        public SceneController(SweetRoleContext context)
         {
-            return View();
+            _context = context;
+        }
+        // GET: Scene
+        public async Task<ActionResult> Index()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            return View(await _context.Scenes.Where(x => x.Story.SweetRoleUserId == userId).ToListAsync());
         }
 
         // GET: Scene/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int? id)
         {
-            return View();
-        }
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var scene = await _context.Scenes
+                .FirstOrDefaultAsync(m => m.SceneId == id);
+            if (scene == null)
+            {
+                return NotFound();
+            }
+
+            return View(scene);
+        }
         // GET: Scene/Create
         public ActionResult Create()
         {
+
+            ViewData["StoryID"] = _context.Stories;
             return View();
         }
 
         // POST: Scene/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(AddSceneViewModel addSceneViewModel)
         {
-            try
+            
+            if (ModelState.IsValid)
             {
-                // TODO: Add insert logic here
 
+                // Add the new Character to my existing Characters
+                Scene newScene = new Scene
+                {
+                    Name = addSceneViewModel.Name,
+                    Setting = addSceneViewModel.Setting,
+                    StoryID = addSceneViewModel.StoryId
+                };
+
+                _context.Add(newScene);
+                await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            ViewData["StoryID"] = _context.Stories;
+            return View(addSceneViewModel);
+
         }
 
         // GET: Scene/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int? id)
         {
-            return View();
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var scene = await _context.Scenes.FindAsync(id);
+            if (scene == null)
+            {
+                return NotFound();
+            }
+
+            return View(scene);
         }
 
         // POST: Scene/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(int id, [Bind("Title")] Scene scene)
         {
-            try
+            if (id != scene.SceneId)
             {
-                // TODO: Add update logic here
+                return NotFound();
+            }
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(scene);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
 
+                    if (!StoryExists(scene.SceneId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
                 return RedirectToAction(nameof(Index));
             }
-            catch
-            {
-                return View();
-            }
+            return View(scene);
         }
 
         // GET: Scene/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> Delete(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var scene = await _context.Scenes
+                .FirstOrDefaultAsync(m => m.SceneId == id);
+            if (scene == null)
+            {
+                return NotFound();
+            }
+
+            return View(scene);
         }
 
         // POST: Scene/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            var scene = await _context.Scenes.FindAsync(id);
+            _context.Scenes.Remove(scene);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
+        }
+
+        private bool StoryExists(int id)
+        {
+            return _context.Scenes.Any(e => e.SceneId == id);
         }
     }
 }

@@ -15,6 +15,10 @@ namespace SweetRole.ViewModels
         [Required]
         [Display(Name = "Scene Name")]
         public string Setting { get; set; }
+
+        [Required]
+        public int StoryId { get; set; }
+
+
     }
 }
- 
