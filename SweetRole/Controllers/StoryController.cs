@@ -36,6 +36,7 @@ namespace SweetRole.Controllers
             }
 
             var story = await _context.Stories
+                .Include(s => s.Scenes)
                 .FirstOrDefaultAsync(m => m.StoryId == id);
             if (story == null)
             {
@@ -99,7 +100,7 @@ namespace SweetRole.Controllers
         // POST: Story/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id, [Bind("Title")] Story story)
+        public async Task<ActionResult> Edit(int id, [Bind("StoryId, Title, DateCreated, Genre, SweetRoleUserId")] Story story)
         {
             if (id != story.StoryId)
             {

@@ -13,30 +13,19 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="StoryId" class="control-label"></label>
-                <input asp-for="StoryId" class="form-control" />
-                <span asp-validation-for="StoryId" class="text-danger"></span>
-            </div>
+            
+            <input type="hidden" asp-for="StoryId" />
+            <input type="hidden" asp-for="DateCreated" />
+            <input type="hidden" asp-for="SweetRoleUserId" />
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DateCreated" class="control-label"></label>
-                <input asp-for="DateCreated" class="form-control" />
-                <span asp-validation-for="DateCreated" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Genre" class="control-label"></label>
                 <input asp-for="Genre" class="form-control" />
                 <span asp-validation-for="Genre" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SweetRoleUserId" class="control-label"></label>
-                <input asp-for="SweetRoleUserId" class="form-control" />
-                <span asp-validation-for="SweetRoleUserId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

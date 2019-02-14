@@ -100,7 +100,7 @@ namespace SweetRole.Controllers
         // POST: Character/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id, [Bind("Name")] Character character)
+        public async Task<ActionResult> Edit(int id, [Bind("CharacterId, Name, SweetRoleUserId")] Character character)
         {
             if (id != character.CharacterId)
             {
@@ -111,21 +111,21 @@ namespace SweetRole.Controllers
                 try
                 {
                     _context.Update(character);
-                await _context.SaveChangesAsync();
-            }
+                    await _context.SaveChangesAsync();
+                }
                 catch (DbUpdateConcurrencyException)
-            {
+                {
 
-                if (!CharacterExists(character.CharacterId))
-                {
-                    return NotFound();
+                    if (!CharacterExists(character.CharacterId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
-                else
-                {
-                    throw;
-                }
-            }
-            return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
             }
             return View(character);
         }
