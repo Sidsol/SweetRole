@@ -11,23 +11,23 @@ using SweetRole.ViewModels;
 
 namespace SweetRole.Controllers
 {
-    public class StoryController : Controller
+    public class SceneController : Controller
     {
         private readonly SweetRoleContext _context;
-        public StoryController(SweetRoleContext context)
+
+        public SceneController(SweetRoleContext context)
         {
             _context = context;
         }
-
-        // GET: Story
+        // GET: Scene
         public async Task<ActionResult> Index()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            return View(await _context.Stories.Where(x => x.SweetRoleUserId == userId).ToListAsync());
+            return View(await _context.Scenes.Where(x => x.Story.SweetRoleUserId == userId).ToListAsync());
         }
 
-        // GET: Story/Details/5
+        // GET: Scene/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -35,51 +35,50 @@ namespace SweetRole.Controllers
                 return NotFound();
             }
 
-            var story = await _context.Stories
-                .Include(s => s.Scenes)
-                .FirstOrDefaultAsync(m => m.StoryId == id);
-            if (story == null)
+            var scene = await _context.Scenes
+                .FirstOrDefaultAsync(m => m.SceneId == id);
+            if (scene == null)
             {
                 return NotFound();
             }
 
-            return View(story);
+            return View(scene);
         }
-
-        // GET: Story/Create
+        // GET: Scene/Create
         public ActionResult Create()
         {
+
+            ViewData["StoryID"] = _context.Stories;
             return View();
         }
 
-        // POST: Story/Create
+        // POST: Scene/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(AddStoryViewModel addStoryViewModel)
+        public async Task<ActionResult> Create(AddSceneViewModel addSceneViewModel)
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            
             if (ModelState.IsValid)
             {
 
                 // Add the new Character to my existing Characters
-                Story newStory = new Story
+                Scene newScene = new Scene
                 {
-                    Title = addStoryViewModel.Title,
-                    DateCreated = DateTime.Now,
-                    Genre = addStoryViewModel.Genre,
-                    SweetRoleUserId = userId
+                    Name = addSceneViewModel.Name,
+                    Setting = addSceneViewModel.Setting,
+                    StoryID = addSceneViewModel.StoryId
                 };
 
-                _context.Add(newStory);
+                _context.Add(newScene);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(addStoryViewModel);
+            ViewData["StoryID"] = _context.Stories;
+            return View(addSceneViewModel);
 
         }
 
-
-        // GET: Story/Edit/5
+        // GET: Scene/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
 
@@ -88,21 +87,21 @@ namespace SweetRole.Controllers
                 return NotFound();
             }
 
-            var story = await _context.Stories.FindAsync(id);
-            if (story == null)
+            var scene = await _context.Scenes.FindAsync(id);
+            if (scene == null)
             {
                 return NotFound();
             }
 
-            return View(story);
+            return View(scene);
         }
 
-        // POST: Story/Edit/5
+        // POST: Scene/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id, [Bind("StoryId, Title, DateCreated, Genre, SweetRoleUserId")] Story story)
+        public async Task<ActionResult> Edit(int id, [Bind("Title")] Scene scene)
         {
-            if (id != story.StoryId)
+            if (id != scene.SceneId)
             {
                 return NotFound();
             }
@@ -110,13 +109,13 @@ namespace SweetRole.Controllers
             {
                 try
                 {
-                    _context.Update(story);
+                    _context.Update(scene);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
 
-                    if (!StoryExists(story.StoryId))
+                    if (!StoryExists(scene.SceneId))
                     {
                         return NotFound();
                     }
@@ -127,10 +126,10 @@ namespace SweetRole.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(story);
+            return View(scene);
         }
 
-        // GET: Story/Delete/5
+        // GET: Scene/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -138,24 +137,24 @@ namespace SweetRole.Controllers
                 return NotFound();
             }
 
-            var story = await _context.Stories
-                .FirstOrDefaultAsync(m => m.StoryId == id);
-            if (story == null)
+            var scene = await _context.Scenes
+                .FirstOrDefaultAsync(m => m.SceneId == id);
+            if (scene == null)
             {
                 return NotFound();
             }
 
-            return View(story);
+            return View(scene);
         }
 
-        // POST: Story/Delete/5
+        // POST: Scene/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
 
-            var story = await _context.Stories.FindAsync(id);
-            _context.Stories.Remove(story);
+            var scene = await _context.Scenes.FindAsync(id);
+            _context.Scenes.Remove(scene);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
 
@@ -163,7 +162,7 @@ namespace SweetRole.Controllers
 
         private bool StoryExists(int id)
         {
-            return _context.Stories.Any(e => e.StoryId == id);
+            return _context.Scenes.Any(e => e.SceneId == id);
         }
     }
 }

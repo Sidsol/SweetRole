@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SweetRole.Models;
 
 namespace SweetRole.Migrations
 {
     [DbContext(typeof(SweetRoleContext))]
-    partial class SweetRoleContextModelSnapshot : ModelSnapshot
+    [Migration("20190210235349_AddScene")]
+    partial class AddScene
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -209,7 +211,7 @@ namespace SweetRole.Migrations
 
             modelBuilder.Entity("SweetRole.Models.Scene", b =>
                 {
-                    b.Property<int>("SceneId")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -219,7 +221,7 @@ namespace SweetRole.Migrations
 
                     b.Property<int>("StoryID");
 
-                    b.HasKey("SceneId");
+                    b.HasKey("ID");
 
                     b.HasIndex("StoryID");
 
@@ -305,7 +307,7 @@ namespace SweetRole.Migrations
             modelBuilder.Entity("SweetRole.Models.Scene", b =>
                 {
                     b.HasOne("SweetRole.Models.Story", "Story")
-                        .WithMany("Scenes")
+                        .WithMany()
                         .HasForeignKey("StoryID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

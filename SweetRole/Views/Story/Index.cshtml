@@ -10,6 +10,39 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<div class="container-fluid">
+    <div id="myWorkContent" class="container">
+
+        @*<div class="row justify-content-center">*@
+
+        @foreach (var item in Model)
+
+        {
+
+            <div class="card" style="width: 18rem;">
+
+                <a href="https://placeholder.com"><img src="https://via.placeholder.com/150.png?text=Place+holder+photo" class="card-img-top" alt="..."></a>
+
+                <div class="card-body">
+
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
+
+                    <a class="btn btn-primary" href="/story/details/@item.StoryId" role="button">Details</a>
+
+                    <a class="btn btn-info" href="/story/edit/@item.StoryId" role="button">Edit</a>
+
+                    <a class="btn btn-danger" href="/story/delete/@item.StoryId" role="button">Delete</a>
+
+                </div>
+
+            </div>
+
+        }
+
+        @*</div>*@
+    </div>
+</div>
+<br />
 <table class="table">
     <thead>
         <tr>
