@@ -36,8 +36,8 @@ namespace SweetRole
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            //services.AddDbContext<SweetRoleContext>(options =>
-            //    options.UseSqlServer(Configuration.GetConnectionString("SweetRoleContext")));
+            services.AddDbContext<SweetRoleContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("SweetRoleContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +46,7 @@ namespace SweetRole
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
             else
             {

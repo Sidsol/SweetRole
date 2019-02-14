@@ -22,5 +22,6 @@ namespace SweetRole.Models
         public string SweetRoleUserId { get; set; }
         public virtual SweetRoleUser SweetRoleUser { get; set; }
 
+        public virtual ICollection<CharacterScene> CharacterScenes { get; set; }
     }
 }
