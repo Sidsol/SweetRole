@@ -1,0 +1,37 @@
+﻿@model SweetRole.ViewModels.AddCharacterSceneViewModel
+
+@{
+    ViewData["Title"] = "Add Character to Scene " + Model.Scene.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>AddCharacter</h1>
+
+<h4>AddCharacterSceneViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddCharacter">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CharacterId" class="control-label"></label>
+                <select asp-for="CharacterId" asp-items="@Model.Characters" class="form-control"> </select>
+                <span asp-validation-for="CharacterId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="hidden" asp-for="SceneId" value="@Model.Scene.SceneId"/>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add Character" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

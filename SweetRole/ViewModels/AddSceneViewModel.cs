@@ -13,7 +13,7 @@ namespace SweetRole.ViewModels
         public string Name { get; set; }
 
         [Required]
-        [Display(Name = "Scene Name")]
+        [Display(Name = "Scene Setting")]
         public string Setting { get; set; }
 
         [Required]

@@ -1,0 +1,47 @@
+﻿@model SweetRole.Models.Scene
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Scene</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SceneId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SceneId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Setting)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Setting)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.StoryID)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.StoryID)
+        </dd>
+    </dl>.
+</div>
+<div>
+    <a class="btn btn-primary" asp-controller="Scene" asp-action="AddCharacter" asp-route-id="@Model.SceneId" role="button">Add Character</a>
+</div>
+
+<div>
+    @Html.ActionLink("Edit", "Edit", new {  id = Model.SceneId }) |
+    <a asp-action="Index">Back to List</a>
+</div>

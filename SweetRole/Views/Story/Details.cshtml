@@ -53,6 +53,8 @@
             <th>Scene Title</th>
 
             <th>Setting</th>
+            @*TODO: Remove when no longer needed for testing*@
+            <th>Scene Story Id</th>
 
         </tr>
 
@@ -61,11 +63,14 @@
             <tr>
 
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    <a asp-controller="Scene" asp-action="Details" asp-route-id="@item.SceneId">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Setting)
                 </td>
+                @*TODO: Remove when no longer needed for testing*@
                 <td>
                     @Html.DisplayFor(modelItem => item.StoryID)
                 </td>
@@ -74,10 +79,11 @@
 
     </table>
 }
-@*@else
-{ 
+else
+{
  <p>No Scenes created yet</p>
-}*@
+ <a class="btn btn-primary" asp-controller="Scene" asp-action="Create" role="button">Add Scene</a>
+}
 
 
 <div>
