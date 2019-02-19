@@ -7,6 +7,8 @@ namespace SweetRole.Models
 {
     public class CharacterScene
     {
+        //public int CharacterSceneId { get; set; }
+
         public int CharacterId { get; set; }
         public Character Character { get; set; }
 

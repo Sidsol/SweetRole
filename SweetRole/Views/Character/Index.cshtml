@@ -7,21 +7,21 @@
 
 <h1>Characters</h1>
 
-<p>
-
-    <a asp-action="Create">Create New Character</a>
-
-</p>
+<div class="container">
+    <p>
+        <a class="btn btn-primary" asp-action="Create">Create character</a>
+    </p>
+</div>
 
 <div class="container">
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-start">
 
         @foreach (var item in Model)
 
         {
 
-            <div class="col-sm">
+            <div class="col-sm" style="padding: 4px">
 
                 <div class="card" style="width: 18rem;">
 
@@ -49,45 +49,4 @@
     </div>
 </div>
 <br />
-<table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.CharacterId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                @*<th>
-                    @Html.DisplayNameFor(model => model.DateOfBirth)
-                </th>*@
-                <th>
-                    @Html.DisplayNameFor(model => model.SweetRoleUserId)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-    @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CharacterId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.DateOfBirth)
-                </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.SweetRoleUserId)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                </td>
-            </tr>
-    }
-        </tbody>
-    </table>
+

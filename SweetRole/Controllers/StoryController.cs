@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SweetRole.Areas.Identity.Data;
 using SweetRole.Models;
 using SweetRole.ViewModels;
 
@@ -34,17 +35,23 @@ namespace SweetRole.Controllers
             {
                 return NotFound();
             }
+            List<SweetRoleUser> users = await _context.Users.ToListAsync();
 
-            var story = await _context.Stories
+            Story story = await _context.Stories
                 .Include(s => s.Scenes)
                 .FirstOrDefaultAsync(m => m.StoryId == id);
             if (story == null)
             {
                 return NotFound();
             }
-
-            return View(story);
+            //return View(story);
+            return View(new DetailsStoryViewModel(story, users));
         }
+
+        //private string DetailsStoryViewModel(List<SweetRoleUser> users)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         // GET: Story/Create
         public ActionResult Create()

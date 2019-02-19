@@ -48,7 +48,6 @@ namespace SweetRole.Controllers
         public ActionResult Create()
         {
 
-            ViewData["StoryID"] = _context.Stories;
             return View();
         }
 
@@ -163,6 +162,48 @@ namespace SweetRole.Controllers
         private bool StoryExists(int id)
         {
             return _context.Scenes.Any(e => e.SceneId == id);
+        }
+        // GET: CharacterScene/Create
+        public async Task<ActionResult> AddCharacter(int id)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            Scene scene = _context.Scenes.Single(m => m.SceneId == id);
+            List<Character> characters = await _context.Characters.Where(c => c.SweetRoleUserId == userId).ToListAsync();
+
+            return View(new AddCharacterSceneViewModel(scene, characters));
+        }
+
+        // POST: CharacterScene/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddCharacter(AddCharacterSceneViewModel addCharacterSceneViewModel)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if (ModelState.IsValid)
+            {
+                var characterId = addCharacterSceneViewModel.CharacterId;
+                var sceneId = addCharacterSceneViewModel.SceneId;
+
+                ICollection<CharacterScene> existingItems = _context.CharacterScenes
+                    .Where(cs => cs.CharacterId == characterId)
+                    .Where(cs => cs.SceneId == sceneId).ToList();
+                if (existingItems.Count == 0)
+                {
+                    CharacterScene addCharacter = new CharacterScene
+                    {
+
+                        Character = _context.Characters.Single(c => c.CharacterId == characterId),
+                        Scene = _context.Scenes.Single(s => s.SceneId == sceneId)
+                    };
+
+                    _context.Add(addCharacter);
+                    await _context.SaveChangesAsync();
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            return View(addCharacterSceneViewModel);
+
         }
     }
 }

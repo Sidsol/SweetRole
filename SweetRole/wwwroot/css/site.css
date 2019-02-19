@@ -59,11 +59,15 @@ body {
     /*width: auto;
     height: auto;*/
     /*border: 13px solid #bed5cd;*/
-    overflow-x: scroll;
+    overflow-x: auto;
+    visibility: hidden;
     overflow-y: hidden;
     white-space: nowrap;
+    /*-ms-overflow-style: none; /*IE 10+*/
+    /*overflow: -moz-scrollbars-none;*/ */
 }
     #myWorkContent .card {
+        visibility: visible;
         display: inline-block;
         vertical-align: middle;
     }
