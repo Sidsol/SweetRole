@@ -1,7 +1,7 @@
 ﻿@model SweetRole.ViewModels.DetailsStoryViewModel
 
 @{
-    ViewData["Title"] = "@m";
+    ViewData["Title"] = Model.Story.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -68,7 +68,7 @@
     <h3>Scenes</h3>
     <hr />
     <p>
-        <a class="btn btn-primary" asp-controller="Scene" asp-action="Create" role="button">Add Scene</a>
+        <a class="btn btn-primary" asp-controller="Scene" asp-action="Create" asp-route-id="@Model.Story.StoryId" role="button">Add Scene</a>
     </p>
     @if (Model.Story.Scenes != null)
     {

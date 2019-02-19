@@ -22,9 +22,7 @@ namespace SweetRole.ViewModels
 
 
         public AddCharacterSceneViewModel(Scene scene, IEnumerable<Character> characters)
-
         {
-
             Characters = new List<SelectListItem>();
             foreach (var character in characters)
             {

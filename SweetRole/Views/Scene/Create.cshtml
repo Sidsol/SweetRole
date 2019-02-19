@@ -24,9 +24,7 @@
                 <span asp-validation-for="Setting" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StoryId" class="control-label"></label>
-                <input asp-for="StoryId" class="form-control" value="@ViewBag.StoryID"/>
-                <span asp-validation-for="StoryId" class="text-danger"></span>
+                <input type="hidden" asp-for="StoryId" value="@Model.Story.StoryId"/>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

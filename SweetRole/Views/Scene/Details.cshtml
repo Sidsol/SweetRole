@@ -35,10 +35,46 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.StoryID)
         </dd>
-    </dl>.
+    </dl>
 </div>
 <div>
     <a class="btn btn-primary" asp-controller="Scene" asp-action="AddCharacter" asp-route-id="@Model.SceneId" role="button">Add Character</a>
+</div>
+
+<div class="container">
+
+    <div class="row justify-content-start">
+
+        @foreach (var item in Model.CharacterScenes)
+
+        {
+
+            <div class="col-sm" style="padding: 4px">
+
+                <div class="card" style="width: 18rem;">
+
+                    <a href="https://placeholder.com"><img src="https://via.placeholder.com/150.png?text=Place+holder+photo" class="card-img-top" alt="..."></a>
+
+                    <div class="card-body">
+
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Character.Name)</h5>
+
+                        @*<p class="card-text">@Html.DisplayFor(modelItem => item.DateOfBirth)</p>*@
+
+                        <a class="btn btn-primary" href="/character/details/@item.CharacterId" role="button">Details</a>
+
+                        <a class="btn btn-info" href="/character/edit/@item.CharacterId" role="button">Edit</a>
+
+                        @*<a class="btn btn-danger" href="/character/delete/@item.CharacterId" role="button">Delete</a>*@
+
+                    </div>
+
+                </div>
+            </div>
+
+        }
+
+    </div>
 </div>
 
 <div>

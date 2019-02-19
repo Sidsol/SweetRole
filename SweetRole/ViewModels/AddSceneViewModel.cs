@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SweetRole.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -19,6 +20,13 @@ namespace SweetRole.ViewModels
         [Required]
         public int StoryId { get; set; }
 
+        public Story Story { get; set; }
+        public AddSceneViewModel() { }
 
+
+        public AddSceneViewModel(Story story)
+        {
+            Story = story;
+        }
     }
 }

@@ -35,8 +35,10 @@ namespace SweetRole.Controllers
                 return NotFound();
             }
 
-            var scene = await _context.Scenes
+            Scene scene = await _context.Scenes
+                .Include(s => s.CharacterScenes)
                 .FirstOrDefaultAsync(m => m.SceneId == id);
+
             if (scene == null)
             {
                 return NotFound();
@@ -45,10 +47,12 @@ namespace SweetRole.Controllers
             return View(scene);
         }
         // GET: Scene/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create(int? id)
         {
+            Story story = await _context.Stories
+                .FirstOrDefaultAsync(s => s.StoryId == id);
 
-            return View();
+            return View(new AddSceneViewModel(story));
         }
 
         // POST: Scene/Create
@@ -70,9 +74,8 @@ namespace SweetRole.Controllers
 
                 _context.Add(newScene);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", new { id = newScene.SceneId });
             }
-            ViewData["StoryID"] = _context.Stories;
             return View(addSceneViewModel);
 
         }
@@ -200,7 +203,7 @@ namespace SweetRole.Controllers
                     _context.Add(addCharacter);
                     await _context.SaveChangesAsync();
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", new { id = sceneId });
             }
             return View(addCharacterSceneViewModel);
 

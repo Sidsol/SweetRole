@@ -39,7 +39,7 @@ namespace SweetRole.Controllers
 
             Story story = await _context.Stories
                 .Include(s => s.Scenes)
-                .FirstOrDefaultAsync(m => m.StoryId == id);
+                .FirstOrDefaultAsync(s => s.StoryId == id);
             if (story == null)
             {
                 return NotFound();
@@ -48,10 +48,6 @@ namespace SweetRole.Controllers
             return View(new DetailsStoryViewModel(story, users));
         }
 
-        //private string DetailsStoryViewModel(List<SweetRoleUser> users)
-        //{
-        //    throw new NotImplementedException();
-        //}
 
         // GET: Story/Create
         public ActionResult Create()
@@ -79,7 +75,7 @@ namespace SweetRole.Controllers
 
                 _context.Add(newStory);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", new { id = newStory.StoryId });
             }
             return View(addStoryViewModel);
 
