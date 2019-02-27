@@ -39,7 +39,7 @@ namespace SweetRole.Controllers
 
             Story story = await _context.Stories
                 .Include(s => s.Scenes)
-                .FirstOrDefaultAsync(s => s.StoryId == id);
+                .FirstOrDefaultAsync(s => s.StoryID == id);
             if (story == null)
             {
                 return NotFound();
@@ -75,7 +75,7 @@ namespace SweetRole.Controllers
 
                 _context.Add(newStory);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Details", new { id = newStory.StoryId });
+                return RedirectToAction("Details", new { id = newStory.StoryID });
             }
             return View(addStoryViewModel);
 
@@ -103,9 +103,9 @@ namespace SweetRole.Controllers
         // POST: Story/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id, [Bind("StoryId, Title, DateCreated, Genre, SweetRoleUserId")] Story story)
+        public async Task<ActionResult> Edit(int id, [Bind("StoryID, Title, DateCreated, Genre, SweetRoleUserId")] Story story)
         {
-            if (id != story.StoryId)
+            if (id != story.StoryID)
             {
                 return NotFound();
             }
@@ -119,7 +119,7 @@ namespace SweetRole.Controllers
                 catch (DbUpdateConcurrencyException)
                 {
 
-                    if (!StoryExists(story.StoryId))
+                    if (!StoryExists(story.StoryID))
                     {
                         return NotFound();
                     }
@@ -142,7 +142,7 @@ namespace SweetRole.Controllers
             }
 
             var story = await _context.Stories
-                .FirstOrDefaultAsync(m => m.StoryId == id);
+                .FirstOrDefaultAsync(m => m.StoryID == id);
             if (story == null)
             {
                 return NotFound();
@@ -166,7 +166,7 @@ namespace SweetRole.Controllers
 
         private bool StoryExists(int id)
         {
-            return _context.Stories.Any(e => e.StoryId == id);
+            return _context.Stories.Any(e => e.StoryID == id);
         }
     }
 }

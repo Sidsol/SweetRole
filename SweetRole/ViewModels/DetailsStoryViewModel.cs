@@ -3,6 +3,7 @@ using SweetRole.Areas.Identity.Data;
 using SweetRole.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 namespace SweetRole.ViewModels
 {
     public class DetailsStoryViewModel
-    {
+    { 
         public List<SelectListItem> Users { get; set; }
         public Story Story { get; set; }
         public DetailsStoryViewModel() { }

@@ -1,15 +1,44 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <TypeScriptToolsVersion>3.3</TypeScriptToolsVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20190226062534_addedCharacterSceneIDPrimary.cs" />
+    <Compile Remove="Migrations\20190226062534_addedCharacterSceneIDPrimary.Designer.cs" />
+    <Compile Remove="Migrations\20190226062836_addedCharacterSceneIDPrimary.cs" />
+    <Compile Remove="Migrations\20190226062836_addedCharacterSceneIDPrimary.Designer.cs" />
+    <Compile Remove="Migrations\20190226063215_addedCharacterSceneIDPrimary.cs" />
+    <Compile Remove="Migrations\20190226063215_addedCharacterSceneIDPrimary.Designer.cs" />
+    <Compile Remove="Migrations\20190226063451_InitialMigration.cs" />
+    <Compile Remove="Migrations\20190226063451_InitialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20190226063807_InitialMigration.cs" />
+    <Compile Remove="Migrations\20190226063807_InitialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20190226063959_InitialMigration.cs" />
+    <Compile Remove="Migrations\20190226063959_InitialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20190226064838_InitialMigration.cs" />
+    <Compile Remove="Migrations\20190226064838_InitialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20190226064927_InitialMigration.cs" />
+    <Compile Remove="Migrations\20190226064927_InitialMigration.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\ts\scenedetails.ts" />
+  </ItemGroup>
 
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <TypeScriptCompile Include="wwwroot\ts\scenedetails.ts" />
   </ItemGroup>
 
 </Project>

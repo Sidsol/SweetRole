@@ -7,12 +7,12 @@ namespace SweetRole.Models
 {
     public class CharacterScene
     {
-        //public int CharacterSceneId { get; set; }
+        public int CharacterSceneID { get; set; }
 
-        public int CharacterId { get; set; }
-        public Character Character { get; set; }
+        public int? CharacterID { get; set; }
+        public virtual Character Character { get; set; }
 
-        public int SceneId { get; set; }
-        public Scene Scene { get; set; }
+        public int? SceneID { get; set; }
+        public virtual Scene Scene { get; set; }
     }
 }

@@ -39,7 +39,7 @@ namespace SweetRole.Controllers
             }
 
             var character = await _context.Characters
-                .FirstOrDefaultAsync(m => m.CharacterId == id);
+                .FirstOrDefaultAsync(m => m.CharacterID == id);
             if (character == null)
             {
                 return NotFound();
@@ -100,9 +100,9 @@ namespace SweetRole.Controllers
         // POST: Character/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id, [Bind("CharacterId, Name, SweetRoleUserId")] Character character)
+        public async Task<ActionResult> Edit(int id, [Bind("CharacterID, Name, SweetRoleUserId")] Character character)
         {
-            if (id != character.CharacterId)
+            if (id != character.CharacterID)
             {
                 return NotFound();
             }
@@ -116,7 +116,7 @@ namespace SweetRole.Controllers
                 catch (DbUpdateConcurrencyException)
                 {
 
-                    if (!CharacterExists(character.CharacterId))
+                    if (!CharacterExists(character.CharacterID))
                     {
                         return NotFound();
                     }
@@ -139,7 +139,7 @@ namespace SweetRole.Controllers
             }
 
             var character = await _context.Characters
-                .FirstOrDefaultAsync(m => m.CharacterId == id);
+                .FirstOrDefaultAsync(m => m.CharacterID == id);
             if (character == null)
             {
                 return NotFound();
@@ -163,7 +163,7 @@ namespace SweetRole.Controllers
 
         private bool CharacterExists(int id)
         {
-            return _context.Characters.Any(e => e.CharacterId == id);
+            return _context.Characters.Any(e => e.CharacterID == id);
         }
     }
 }

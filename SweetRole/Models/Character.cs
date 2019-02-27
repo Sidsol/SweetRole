@@ -10,7 +10,7 @@ namespace SweetRole.Models
     public class Character
     {
 
-        public int CharacterId { get; set; }
+        public int CharacterID { get; set; }
 
         [Required]
         public string Name { get; set; }

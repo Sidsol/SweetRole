@@ -34,7 +34,7 @@ namespace SweetRole.Controllers
         // GET: CharacterScene/Create
         public ActionResult AddCharacter(int id)
         {
-            Scene scene = _context.Scenes.Single(m => m.SceneId == id);
+            Scene scene = _context.Scenes.Single(m => m.SceneID == id);
             List<Character> characters = _context.Characters.ToList();
             return View(new AddCharacterSceneViewModel(scene, characters));
         }
@@ -47,19 +47,19 @@ namespace SweetRole.Controllers
             var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             if (ModelState.IsValid)
             {
-                var characterId = addCharacterSceneViewModel.CharacterId;
-                var sceneId = addCharacterSceneViewModel.SceneId;
+                var characterId = addCharacterSceneViewModel.CharacterID;
+                var sceneId = addCharacterSceneViewModel.SceneID;
 
                 ICollection<CharacterScene> existingItems = _context.CharacterScenes
-                    .Where(cs => cs.CharacterId == characterId)
-                    .Where(cs => cs.SceneId == sceneId).ToList();
+                    .Where(cs => cs.CharacterID == characterId)
+                    .Where(cs => cs.SceneID == sceneId).ToList();
                 if (existingItems.Count == 0)
                 {
                     CharacterScene addCharacter = new CharacterScene
                     {
 
-                        Character = _context.Characters.Single(c => c.CharacterId == characterId),
-                        Scene = _context.Scenes.Single(s => s.SceneId == sceneId)
+                        Character = _context.Characters.Single(c => c.CharacterID == characterId),
+                        Scene = _context.Scenes.Single(s => s.SceneID == sceneId)
                     };
 
                     _context.Add(addCharacter);
