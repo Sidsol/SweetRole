@@ -25,9 +25,16 @@ namespace SweetRole.Controllers
         // GET: Character
         public async Task<ActionResult> Index()
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-
-            return View(await _context.Characters.Where(x => x.SweetRoleUserId == userId ).ToListAsync());
+            var userId = "";
+            if (User.Identity.IsAuthenticated)
+            {
+                userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                return View(await _context.Characters.Where(x => x.SweetRoleUserId == userId).ToListAsync());
+            }
+            else
+            {
+                return Redirect("/Identity/Account/Login");
+            }
         }
 
         // GET: Character/Details/5

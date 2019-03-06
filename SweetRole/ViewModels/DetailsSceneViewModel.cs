@@ -8,5 +8,6 @@ namespace SweetRole.ViewModels
     public class DetailsSceneViewModel
     {
 
+
     }
 }

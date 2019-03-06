@@ -15,8 +15,29 @@ namespace SweetRole.Models
         [Required]
         public string Name { get; set; }
 
-        //[DataType(DataType.Date)]
-        //public DateTime DateOfBirth { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime? DateOfBirth { get; set; }
+
+        public string Gender { get; set; }
+
+        public string SexualOrientation { get; set; }
+
+        public double Height { get; set; }
+
+        public double Weight { get; set; }
+
+        public string EyeColor { get; set; }
+
+        public string HairColor { get; set; }
+
+        public string Race { get; set; }
+
+        public string Species { get; set; }
+
+        public string BackStory { get; set; }
+
+        public string Miscellaneous { get; set; }
+
 
         [Required]
         public string SweetRoleUserId { get; set; }

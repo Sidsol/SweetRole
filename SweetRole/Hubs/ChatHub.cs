@@ -10,9 +10,13 @@ namespace SweetRole.Hubs
     //[HubMethodName("SingleChatHub")]
     public class ChatHub : Hub
     {
-        public async Task NewMessage(string username, string message)
+        //public async Task NewMessage(string username, string message)
+        //{
+        //    await Clients.All.SendAsync("messageReceived", username, message);
+        //}
+        public async Task SendMessage(string user, string message)
         {
-            await Clients.All.SendAsync("messageReceived", username, message);
+            await Clients.All.SendAsync("ReceiveMessage", user, message);
         }
     }
 }

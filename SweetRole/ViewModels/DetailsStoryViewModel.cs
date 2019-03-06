@@ -1,31 +1,39 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using SweetRole.Areas.Identity.Data;
 using SweetRole.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 
 namespace SweetRole.ViewModels
 {
     public class DetailsStoryViewModel
-    { 
+    {
+
         public List<SelectListItem> Users { get; set; }
         public Story Story { get; set; }
         public DetailsStoryViewModel() { }
 
-        public DetailsStoryViewModel(Story story, IEnumerable<SweetRoleUser> users)
+        public DetailsStoryViewModel(Story story, IEnumerable<SweetRoleUser> users, string userId)
         {
             Users = new List<SelectListItem>();
             foreach (var user in users)
             {
-                Users.Add(new SelectListItem
+                // TODO: Get Select List to only display Foreign Usernames
+                if (user.UserName == userId)
                 {
-                    Value = user.Id.ToString(),
-                    Text = user.UserName
-                });
+                    break;
+                }
+                else
+                {
+                    Users.Add(new SelectListItem
+                    {
+                        Value = user.Id.ToString(),
+                        Text = user.UserName
+                    });
+                }
+
             }
             Story = story;
         }

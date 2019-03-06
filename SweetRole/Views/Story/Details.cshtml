@@ -4,20 +4,16 @@
     ViewData["Title"] = Model.Story.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<script>
-        $(document).ready(function () {
-            $('select').material_select();
-        });
-</script>
 
 <div class="container">
     <h1>@Html.DisplayFor(model => model.Story.Title)</h1>
 
     <div>
         <h3>@Html.DisplayFor(model => model.Story.Genre)</h3>
-        <a class="btn btn-primary" asp-controller="Story" asp-action="Edit" asp-route-id="@Model.Story.StoryID" role="button">Edit Story</a>
+        <a class="btn waves-effect waves-light blue darken-1" asp-controller="Story" asp-action="Edit" asp-route-id="@Model.Story.StoryID" role="button">Edit Story</a>
         <hr />
     </div>
+    <br />
 </div>
 
 <div class="container">
@@ -25,21 +21,18 @@
         <form class="col s12" asp-action="AddCharacter">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="row">
-                <div class="input-field s12">
-
-                    <select>
-                        <option asp-for="Users" asp-items="@Model.Users"></option>
-                    </select>
+                <div class="input-field col s3">
+                    <select asp-for="Users" asp-items="@Model.Users"></select>
                     <label asp-for="Users" class="control-label"></label>
-                    @*<span asp-validation-for="Users" class="text-danger"></span>*@
                 </div>
             </div>
-            @*<div class="row">
-                    <div class="input-field s12">
-
-                        <input type="submit" value="Share Story" class="btn btn-primary" />
-                    </div>
-                </div>*@
+            <div class="row">
+                <div class="input-field s12">
+                    <button class="btn waves-effect waves-light blue darken-1" type="submit" name="action">
+                        Share
+                    </button>
+                </div>
+            </div>
         </form>
     </div>
 </div>
@@ -48,7 +41,7 @@
     <h3>Scenes</h3>
     <hr />
     <p>
-        <a class="btn btn-primary" asp-controller="Scene" asp-action="Create" asp-route-id="@Model.Story.StoryID" role="button">Add Scene</a>
+        <a class="btn waves-effect waves-light blue darken-1" asp-controller="Scene" asp-action="Create" asp-route-id="@Model.Story.StoryID" role="button">Add Scene</a>
     </p>
     @if (Model.Story.Scenes != null)
     {
@@ -69,7 +62,7 @@
                 <tr>
 
                     <td>
-                        <a asp-controller="Scene" asp-action="Details" asp-route-id="@item.SceneID">
+                        <a class="teal-text" asp-controller="Scene" asp-action="Details" asp-route-id="@item.SceneID">
                             @Html.DisplayFor(modelItem => item.Name)
                         </a>
                     </td>
@@ -88,11 +81,12 @@
     else
     {
         <p>No Scenes created yet</p>
-        <a class="btn btn-primary" asp-controller="Scene" asp-action="Create" role="button">Add Scene</a>
+        <a class="btn waves-effect waves-light blue darken-1" asp-controller="Scene" asp-action="Create" role="button">Add Scene</a>
     }
-
+    <br />
 
     <div>
-        <a asp-action="Index">Back to List</a>
+        <a class="teal-text" asp-action="Index">Back to List</a>
     </div>
+    <br />
 </div>

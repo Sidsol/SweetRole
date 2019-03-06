@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SweetRole.Areas.Identity.Data;
@@ -15,17 +14,28 @@ namespace SweetRole.Controllers
     public class StoryController : Controller
     {
         private readonly SweetRoleContext _context;
+
         public StoryController(SweetRoleContext context)
         {
             _context = context;
         }
 
+
+
         // GET: Story
         public async Task<ActionResult> Index()
         {
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var userId = "";
+            if (User.Identity.IsAuthenticated)
+            {
+                userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+                return View(await _context.Stories.Where(x => x.SweetRoleUserId == userId).ToListAsync());
+            }
+            else
+            {
+                return Redirect("/Identity/Account/Login");
+            }
 
-            return View(await _context.Stories.Where(x => x.SweetRoleUserId == userId).ToListAsync());
         }
 
         // GET: Story/Details/5
@@ -36,6 +46,7 @@ namespace SweetRole.Controllers
                 return NotFound();
             }
             List<SweetRoleUser> users = await _context.Users.ToListAsync();
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             Story story = await _context.Stories
                 .Include(s => s.Scenes)
@@ -45,9 +56,16 @@ namespace SweetRole.Controllers
                 return NotFound();
             }
             //return View(story);
-            return View(new DetailsStoryViewModel(story, users));
+            return View(new DetailsStoryViewModel(story, users, userId));
         }
 
+        // POST: Share Story with User
+        //public async Task<AcceptedResult> Details()
+        //{
+        //    return View();
+        //}
+
+        
 
         // GET: Story/Create
         public ActionResult Create()

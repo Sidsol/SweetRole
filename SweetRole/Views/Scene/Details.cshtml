@@ -1,66 +1,103 @@
 ﻿@model SweetRole.Models.Scene
 
+
 @{
-    ViewData["Title"] = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+        ViewData["Title"] = "Details";
+        Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <div class="container">
-        <div>
-            <h4> @Html.DisplayFor(model => model.Name)</h4>
-            <hr />
-        </div>
+<div class="container">
+    <div>
+        <h4> @Html.DisplayFor(model => model.Name)</h4>
+        <hr />
+    </div>
+
+</div>
+
+<div class="container">
+    <a class="btn waves-effect waves-light blue darken-1" asp-controller="Scene" asp-action="AddCharacter" asp-route-id="@Model.SceneID" role="button">Add Character</a>
+</div>
+
+<div class="container">
+    @* TODO: Make this into a container on the side of the text chat *@
+    <div class="row justify-content-start">
+
+        @foreach (var item in Model.CharacterScenes)
+
+        {
+            <div class="col s12 m3">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="~/images/character.jpg">
+                        <span class="card-title">@Html.DisplayFor(modelItem => item.Character.Name)</span>
+                        <a class="btn-floating halfway-fab waves-effect waves-light orange" asp-area="" asp-controller="character" asp-action="edit" asp-route-id="@item.CharacterID"><i class="material-icons">create</i></a>
+                    </div>
+                    <div class="card-content">
+                        <p>
+                            I am a very simple card. I am good at containing small bits of information.
+                            I am convenient because I require little markup to use effectively.
+                        </p>
+                    </div>
+                    <div class="card-action">
+                        <a class="button teal-text" asp-area="" asp-controller="character" asp-action="details" asp-route-id="@item.CharacterID" role="button">Details</a>
+                    </div>
+                </div>
+            </div>
+        }
 
     </div>
 
-        <div class="container">
-            <a class="btn btn-primary" asp-controller="Scene" asp-action="AddCharacter" asp-route-id="@Model.SceneID" role="button">Add Character</a>
-        </div>
+</div>
 
-        <div class="container">
-            <div class="row justify-content-start">
-
-                @foreach (var item in Model.CharacterScenes)
-
-                {
-                    <div class="col s12 m3">
-                        <div class="card">
-                            <div class="card-image">
-                                <img src="~/images/character.jpg">
-                                <span class="card-title">@Html.DisplayFor(modelItem => item.Character.Name)</span>
-                                <a class="btn-floating halfway-fab waves-effect waves-light orange" asp-area="" asp-controller="character" asp-action="edit" asp-route-id="@item.CharacterID"><i class="material-icons">create</i></a>
-                            </div>
-                            <div class="card-content">
-                                <p>
-                                    I am a very simple card. I am good at containing small bits of information.
-                                    I am convenient because I require little markup to use effectively.
-                                </p>
-                            </div>
-                            <div class="card-action">
-                                <a class="button teal-text" asp-area="" asp-controller="character" asp-action="details" asp-route-id="@item.CharacterID" role="button">Details</a>
-                            </div>
-                        </div>
-                    </div>
-                }
-
+@*<div class="container">
+        <div class="col s6">
+            <div id="divMessages" class="messages">
             </div>
-
+            <div class="input-zone" style="padding-bottom:20px">
+                <label id="lblMessage" for="tbMessage">Message:</label>
+                <input id="tbMessage" class="input-zone-input" type="text" />
+                <button id="btnSend" class="btn waves-effect waves-light blue">Send</button>
+            </div>
         </div>
+    </div>*@
 
-        <div class="container">
-            <div class="col 6">
-                <div id="divMessages" class="messages">
-                </div>
-                <div class="input-zone" style="padding-bottom:20px">
-                    <label id="lblMessage" for="tbMessage">Message:</label>
-                    <input id="tbMessage" class="input-zone-input" type="text" />
-                    <button id="btnSend">Send</button>
+<div class="container">
+
+    <div class="container">
+        <div class="row">&nbsp;</div>
+        <div class="row">
+            <div class="col-6">&nbsp;</div>
+            <div class="row">
+                <div class="col-6">&nbsp;</div>
+                <div class="col-6">
+                    <ul id="messagesList"></ul>
                 </div>
             </div>
-        </div>
-        <div class="container">
-            <div style="padding-bottom:50px">
-                @Html.ActionLink("Edit", "Edit", new { id = Model.SceneID }) |
-                <a asp-action="Index">Back to List</a>
+            <div class="col-6">
+                User: <input type="text" id="userInput" />
+                <br />
+                Message: <input type="text" id="messageInput" />
+                <button id="sendButton" class="btn waves-effect waves-light blue darken-1">Send Message</button>
             </div>
         </div>
+        <div class="row">
+            <div class="col-12">
+                <hr />
+            </div>
+        </div>
+        
+    </div>
+    <script src="~/lib/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/chat.js"></script>
+</div>
+
+
+<div class="container">
+    <div>
+        <a class="teal-text" asp-action="Edit" asp-route-id= "@Model.SceneID">Edit</a> |
+        <a class="teal-text" asp-action="Index">Back to List</a>
+    </div>
+    <br />
+</div>
+
+

@@ -36,7 +36,7 @@
                     </div>
                     <div class="row">
                         <div class="input-field col 12">
-                            <input type="submit" value="Save" class="btn btn-primary " />
+                            <button class="btn waves-effect waves-light blue darken-1">Save</button>
                         </div>
                     </div>
                 </form>
@@ -44,9 +44,9 @@
         </div>
 
         <div>
-            <a asp-action="Index">Back to List</a>
+            <a class="teal-text" asp-action="Index">Back to List</a>
         </div>
-
+    <br />
         @section Scripts {
             @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
         }

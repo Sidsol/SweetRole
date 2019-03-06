@@ -68,9 +68,14 @@ namespace SweetRole
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-            app.UseSignalR(options =>
+            //app.UseSignalR(options =>
+            //{
+            //    options.MapHub<ChatHub>("/hub");
+            //});
+
+            app.UseSignalR(routes =>
             {
-                options.MapHub<ChatHub>("/hub");
+                routes.MapHub<ChatHub>("/chatHub");
             });
         }
     }
