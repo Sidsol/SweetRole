@@ -18,7 +18,7 @@ namespace SweetRole.ViewModels
         public string Setting { get; set; }
 
         [Required]
-        public int StoryId { get; set; }
+        public int StoryID { get; set; }
 
         public Story Story { get; set; }
         public AddSceneViewModel() { }

@@ -11,8 +11,8 @@ namespace SweetRole.ViewModels
     public class AddCharacterSceneViewModel
     {
         [Display(Name = "Character Name")]
-        public int CharacterId { get; set; }
-        public int SceneId { get; set; }
+        public int CharacterID { get; set; }
+        public int SceneID { get; set; }
 
         public Scene Scene { get; set; }
 
@@ -28,7 +28,7 @@ namespace SweetRole.ViewModels
             {
                 Characters.Add(new SelectListItem
                 {
-                    Value = character.CharacterId.ToString(),
+                    Value = character.CharacterID.ToString(),
                     Text = character.Name
                 });
             }

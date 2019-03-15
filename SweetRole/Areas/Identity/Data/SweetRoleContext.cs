@@ -27,22 +27,23 @@ namespace SweetRole.Models
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
 
-            builder.Entity<CharacterScene>()
-                .HasKey(bc => new { bc.CharacterId, bc.SceneId });
+            //builder.Entity<CharacterScene>()
+            //    .HasKey(bc => new { bc.CharacterId, bc.SceneId });
 
-            builder.Entity<CharacterScene>()
-                .HasOne(bc => bc.Character)
-                .WithMany(b => b.CharacterScenes)
-                .HasForeignKey(bc => bc.CharacterId)
-                .OnDelete(DeleteBehavior.Restrict);
+            //builder.Entity<CharacterScene>()
+            //    .HasOne(bc => bc.Character)
+            //    .WithMany(b => b.CharacterScenes)
+            //    .HasForeignKey(bc => bc.CharacterId)
+            //    .OnDelete(DeleteBehavior.SetNull);
 
 
+            //builder.Entity<CharacterScene>()
+            //    .HasOne(bc => bc.Scene)
+            //    .WithMany(c => c.CharacterScenes)
+            //    .HasForeignKey(bc => bc.SceneId)
+            //    .OnDelete(DeleteBehavior.SetNull);
 
-            builder.Entity<CharacterScene>()
-                .HasOne(bc => bc.Scene)
-                .WithMany(c => c.CharacterScenes)
-                .HasForeignKey(bc => bc.SceneId)
-                .OnDelete(DeleteBehavior.Restrict);
+
         }
     }
 }

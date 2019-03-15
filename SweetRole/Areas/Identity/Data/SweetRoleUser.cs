@@ -16,5 +16,6 @@ namespace SweetRole.Areas.Identity.Data
         public DateTime DOB { get; set; }
 
         public virtual ICollection<Character> Characters { get; set; }
+
     }
 }

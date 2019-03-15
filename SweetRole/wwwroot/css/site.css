@@ -1,15 +1,15 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
-a.navbar-brand {
+/*a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
-}
+}*/
 
 /* Sticky footer styles
 -------------------------------------------------- */
-html {
+/*html {
   font-size: 14px;
 }
 @media (min-width: 768px) {
@@ -36,14 +36,14 @@ button.accept-policy {
 
 /* Sticky footer styles
 -------------------------------------------------- */
-html {
+/*html {
   position: relative;
   min-height: 100%;
-}
+}*/
 
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+/*body {
+  Margin bottom by footer height */
+/*  margin-bottom: 60px;
 }
 .footer {
   position: absolute;
@@ -51,25 +51,120 @@ body {
   width: 100%;
   white-space: nowrap;
   /* Set the fixed height of the footer here */
-  height: 60px;
-  line-height: 60px; /* Vertically center the text there */
-}
+/*  height: 60px;
+  line-height: 60px; /* Vertically center the text there 
+}*/
 
 #myWorkContent {
-    /*width: auto;
-    height: auto;*/
-    /*border: 13px solid #bed5cd;*/
+    width: auto;
+    height: auto;
+    border: 13px solid #bed5cd;
     overflow-x: auto;
     visibility: hidden;
     overflow-y: hidden;
     white-space: nowrap;
-    /*-ms-overflow-style: none; /*IE 10+*/
-    /*overflow: -moz-scrollbars-none;*/ */
+    -ms-overflow-style: none; /*IE 10+*/
+    overflow: -moz-scrollbars-none;
 }
-    #myWorkContent .card {
+
+#myWorkContent .card {
         visibility: visible;
         display: inline-block;
         vertical-align: middle;
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+
+.input-zone {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    margin: 10px;
+}
+
+.input-zone-input {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.message-author {
+    font-weight: bold;
+}
+
+.messages {
+    border: 1px solid #000;
+    margin: 10px;
+    max-height: 300px;
+    min-height: 300px;
+    overflow-y: auto;
+    padding: 5px;
+}
+
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+nav ul a,
+nav .brand-logo {
+    color: #444;
+}
+
+p {
+    line-height: 2rem;
+}
+
+.sidenav-trigger {
+    color: orange;
+}
+
+.parallax-container {
+    min-height: 380px;
+    line-height: 0;
+    height: auto;
+    color: rgba(255,255,255,.9);
+}
+
+    .parallax-container .section {
+        width: 100%;
     }
 
+@media only screen and (max-width : 992px) {
+    .parallax-container .section {
+        position: absolute;
+        top: 40%;
+    }
 
+    #index-banner .section {
+        top: 10%;
+    }
+}
+
+@media only screen and (max-width : 600px) {
+    #index-banner .section {
+        top: 0;
+    }
+}
+
+.icon-block {
+    padding: 0 15px;
+}
+
+    .icon-block .material-icons {
+        font-size: inherit;
+    }
+
+footer.page-footer {
+    margin: 0;
+}

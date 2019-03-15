@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SweetRole.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,7 +40,9 @@ namespace SweetRole.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    DOB = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -153,6 +155,95 @@ namespace SweetRole.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Characters",
+                columns: table => new
+                {
+                    CharacterID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: false),
+                    SweetRoleUserId = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Characters", x => x.CharacterID);
+                    table.ForeignKey(
+                        name: "FK_Characters_AspNetUsers_SweetRoleUserId",
+                        column: x => x.SweetRoleUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Stories",
+                columns: table => new
+                {
+                    StoryID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Title = table.Column<string>(nullable: false),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    Genre = table.Column<string>(nullable: true),
+                    SweetRoleUserId = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Stories", x => x.StoryID);
+                    table.ForeignKey(
+                        name: "FK_Stories_AspNetUsers_SweetRoleUserId",
+                        column: x => x.SweetRoleUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Scenes",
+                columns: table => new
+                {
+                    SceneID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    Setting = table.Column<string>(nullable: true),
+                    StoryID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Scenes", x => x.SceneID);
+                    table.ForeignKey(
+                        name: "FK_Scenes_Stories_StoryID",
+                        column: x => x.StoryID,
+                        principalTable: "Stories",
+                        principalColumn: "StoryID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CharacterScenes",
+                columns: table => new
+                {
+                    CharacterSceneID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    CharacterID = table.Column<int>(nullable: true),
+                    SceneID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CharacterScenes", x => x.CharacterSceneID);
+                    table.ForeignKey(
+                        name: "FK_CharacterScenes_Characters_CharacterID",
+                        column: x => x.CharacterID,
+                        principalTable: "Characters",
+                        principalColumn: "CharacterID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_CharacterScenes_Scenes_SceneID",
+                        column: x => x.SceneID,
+                        principalTable: "Scenes",
+                        principalColumn: "SceneID",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -191,6 +282,31 @@ namespace SweetRole.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Characters_SweetRoleUserId",
+                table: "Characters",
+                column: "SweetRoleUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CharacterScenes_CharacterID",
+                table: "CharacterScenes",
+                column: "CharacterID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CharacterScenes_SceneID",
+                table: "CharacterScenes",
+                column: "SceneID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Scenes_StoryID",
+                table: "Scenes",
+                column: "StoryID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Stories_SweetRoleUserId",
+                table: "Stories",
+                column: "SweetRoleUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -211,7 +327,19 @@ namespace SweetRole.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "CharacterScenes");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "Characters");
+
+            migrationBuilder.DropTable(
+                name: "Scenes");
+
+            migrationBuilder.DropTable(
+                name: "Stories");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

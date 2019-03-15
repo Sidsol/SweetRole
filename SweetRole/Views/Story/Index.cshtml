@@ -5,73 +5,73 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Stories</h1>
+
+
+    <div class="container">
+        <h4>Stories</h4>
+        <p>
+        </p>
+    </div>
 
 <div class="container">
-    <p>
-        <a class="btn btn-primary" asp-action="Create">Create Story</a>
-    </p>
-</div>
-<div class="container-fluid">
-    <h3>My Stories</h3>
+    <h5>My Stories <a class="btn-floating btn-small waves-effect waves-light orange" asp-action="Create"><i class="material-icons">add</i></a></h5>
+
     <hr />
-    <div id="myWorkContent" class="container">
+</div>
+
+    <div id="myWorkContent">
 
         @foreach (var item in Model)
 
         {
-
-            <div class="card" style="width: 18rem;">
-
-                <a href="https://placeholder.com"><img src="https://via.placeholder.com/150.png?text=Place+holder+photo" class="card-img-top" alt="..."></a>
-
-                <div class="card-body">
-
-                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
-
-                    <a class="btn btn-primary" href="/story/details/@item.StoryId" role="button">Details</a>
-
-                    <a class="btn btn-info" href="/story/edit/@item.StoryId" role="button">Edit</a>
-
-                    <a class="btn btn-danger" href="/story/delete/@item.StoryId" role="button">Delete</a>
-
+                <div class="card" style="width:18rem">
+                    <div class="card-image">
+                        <img src="~/images/story.jpg">
+                        <span class="card-title">@Html.DisplayFor(modelItem => item.Title)</span>
+                        <a class="btn-floating halfway-fab waves-effect waves-light orange" asp-area="" asp-controller="story" asp-action="edit" asp-route-id="@item.StoryID"><i class="material-icons">create</i></a>
+                    </div>
+                    <div class="card-content">
+                        <p> Strange bug constantly</p>
+                        <p>this overflow</p>
+                    </div>
+                    <div class="card-action">
+                            <a class="button teal-text" asp-area="" asp-controller="story" asp-action="details" asp-route-id="@item.StoryID" role="button">Details</a>
+                            |
+                            <a class="button red-text" asp-area="" asp-controller="story" asp-action="delete" asp-route-id="@item.StoryID" role="button">Delete</a>
+                    </div>
                 </div>
-
-            </div>
-
         }
     </div>
-</div>
+
 <br />
 
-<div class="container-fluid">
-<h3>Shared Stories</h3>
-<hr />
-<div id="myWorkContent" class="container">
+<div class="container">
+    <h5>Shared Stories</h5>
+    <hr />
+</div>
+
+<div id="myWorkContent">
 
 
     @foreach (var item in Model)
 
     {
 
-        <div class="card" style="width: 18rem;">
-
-            <a href="https://placeholder.com"><img src="https://via.placeholder.com/150.png?text=Place+holder+photo" class="card-img-top" alt="..."></a>
-
-            <div class="card-body">
-
-                <h5 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h5>
-
-                <a class="btn btn-primary" href="/story/details/@item.StoryId" role="button">Details</a>
-
-                <a class="btn btn-info" href="/story/edit/@item.StoryId" role="button">Edit</a>
-
-                <a class="btn btn-danger" href="/story/delete/@item.StoryId" role="button">Delete</a>
-
+        <div class="card" style="width:18rem">
+            <div class="card-image">
+                <img src="~/images/story2.jpg">
+                <span class="card-title">@Html.DisplayFor(modelItem => item.Title)</span>
+                <a class="btn-floating halfway-fab waves-effect waves-light orange" asp-area="" asp-controller="story" asp-action="edit" asp-route-id="@item.StoryID"><i class="material-icons">create</i></a>
+            </div>
+            <div class="card-content">
+                <p> Strange bug constantly</p>
+                <p>this overflow</p>
+            </div>
+            <div class="card-action">
+                <a class="button teal-text" asp-area="" asp-controller="story" asp-action="details" asp-route-id="@item.StoryID" role="button">Details</a>
             </div>
         </div>
     }
 
-</div>
 </div>
 <br />
