@@ -190,26 +190,67 @@ namespace SweetRole.Migrations
 
             modelBuilder.Entity("SweetRole.Models.Character", b =>
                 {
-                    b.Property<int>("CharacterId")
+                    b.Property<int>("CharacterID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BackStory");
+
+                    b.Property<DateTime?>("DateOfBirth");
+
+                    b.Property<string>("EyeColor");
+
+                    b.Property<string>("Gender");
+
+                    b.Property<string>("HairColor");
+
+                    b.Property<double>("Height");
+
+                    b.Property<string>("Miscellaneous");
 
                     b.Property<string>("Name")
                         .IsRequired();
 
+                    b.Property<string>("Race");
+
+                    b.Property<string>("SexualOrientation");
+
+                    b.Property<string>("Species");
+
                     b.Property<string>("SweetRoleUserId")
                         .IsRequired();
 
-                    b.HasKey("CharacterId");
+                    b.Property<double>("Weight");
+
+                    b.HasKey("CharacterID");
 
                     b.HasIndex("SweetRoleUserId");
 
                     b.ToTable("Characters");
                 });
 
+            modelBuilder.Entity("SweetRole.Models.CharacterScene", b =>
+                {
+                    b.Property<int>("CharacterSceneID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CharacterID");
+
+                    b.Property<int?>("SceneID");
+
+                    b.HasKey("CharacterSceneID");
+
+                    b.HasIndex("CharacterID");
+
+                    b.HasIndex("SceneID");
+
+                    b.ToTable("CharacterScenes");
+                });
+
             modelBuilder.Entity("SweetRole.Models.Scene", b =>
                 {
-                    b.Property<int>("SceneId")
+                    b.Property<int>("SceneID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -219,7 +260,7 @@ namespace SweetRole.Migrations
 
                     b.Property<int>("StoryID");
 
-                    b.HasKey("SceneId");
+                    b.HasKey("SceneID");
 
                     b.HasIndex("StoryID");
 
@@ -228,7 +269,7 @@ namespace SweetRole.Migrations
 
             modelBuilder.Entity("SweetRole.Models.Story", b =>
                 {
-                    b.Property<int>("StoryId")
+                    b.Property<int>("StoryID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -242,7 +283,7 @@ namespace SweetRole.Migrations
                     b.Property<string>("Title")
                         .IsRequired();
 
-                    b.HasKey("StoryId");
+                    b.HasKey("StoryID");
 
                     b.HasIndex("SweetRoleUserId");
 
@@ -300,6 +341,17 @@ namespace SweetRole.Migrations
                         .WithMany("Characters")
                         .HasForeignKey("SweetRoleUserId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("SweetRole.Models.CharacterScene", b =>
+                {
+                    b.HasOne("SweetRole.Models.Character", "Character")
+                        .WithMany("CharacterScenes")
+                        .HasForeignKey("CharacterID");
+
+                    b.HasOne("SweetRole.Models.Scene", "Scene")
+                        .WithMany("CharacterScenes")
+                        .HasForeignKey("SceneID");
                 });
 
             modelBuilder.Entity("SweetRole.Models.Scene", b =>

@@ -4,36 +4,106 @@
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h1>Create</h1>
-
-<h4>AddCharacterViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            @*<div class="form-group">
-                <label asp-for="DateOfBirth" class="control-label"></label>
-                <input asp-for="DateOfBirth" class="form-control" />
-                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
-            </div>*@
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+    <div class="container">
+        <h3>Character Creation</h3>
+        <hr />
+        <br />
     </div>
-</div>
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <form asp-action="Create">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input asp-for="Name" type="text" class="validate" />
+                            <label asp-for="Name"></label>
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input asp-for="DateOfBirth" type="text" class="datepicker" />
+                            <label asp-for="DateOfBirth"></label>
+                            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                        </div>
+                        <div class="input-field col s6">
+                            <input asp-for="Species" type="text" class="validate" />
+                            <label asp-for="Species"></label>
+                            <span asp-validation-for="Species" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input asp-for="Height" type="text" class="validate" />
+                            <label asp-for="Height"></label>
+                            <span asp-validation-for="Height" class="text-danger"></span>
+                        </div>
+                        <div class="input-field col s6">
+                            <input asp-for="Weight" type="text" class="validate" />
+                            <label asp-for="Weight"></label>
+                            <span asp-validation-for="Weight" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input asp-for="EyeColor" type="text" class="validate" />
+                            <label asp-for="EyeColor"></label>
+                            <span asp-validation-for="EyeColor" class="text-danger"></span>
+                        </div>
+                        <div class="input-field col s6">
+                            <input asp-for="HairColor" type="text" class="validate" />
+                            <label asp-for="HairColor"></label>
+                            <span asp-validation-for="HairColor" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s4">
+                            <input asp-for="Race" type="text" class="validate" />
+                            <label asp-for="Race"></label>
+                            <span asp-validation-for="Race" class="text-danger"></span>
+                        </div>
+                        <div class="input-field col s4">
+                            <input asp-for="Gender" type="text" class="validate" />
+                            <label asp-for="Gender"></label>
+                            <span asp-validation-for="Gender" class="text-danger"></span>
+                        </div>
+                        <div class="input-field col s4">
+                            <input asp-for="SexualOrientation" type="text" class="validate" />
+                            <label asp-for="SexualOrientation"></label>
+                            <span asp-validation-for="SexualOrientation" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input asp-for="BackStory" type="text" class="validate" />
+                            <label asp-for="BackStory"></label>
+                            <span asp-validation-for="BackStory" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <input asp-for="Miscellaneous" type="text" class="validate" />
+                            <label asp-for="Miscellaneous"></label>
+                            <span asp-validation-for="Miscellaneous" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+                        <button type="submit" value="Create" class="btn waves-effect waves-light blue darken-1">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div>
+            <a class="teal-text" asp-action="Index">Back to List</a>
+        </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        }
+    </div>

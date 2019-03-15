@@ -5,89 +5,43 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Characters</h1>
 
-<p>
 
-    <a asp-action="Create">Create New Character</a>
+<div class="container">
+    <h4>Characters <a class="btn-floating btn-small waves-effect waves-light orange" asp-action="Create"><i class="material-icons">add</i></a></h4>
+    <hr />
+</div>
 
-</p>
 
 <div class="container">
 
-    <div class="row justify-content-center">
+    <div class="row justify-content-start">
 
         @foreach (var item in Model)
 
         {
-
-            <div class="col-sm">
-
-                <div class="card" style="width: 18rem;">
-
-                    <a href="https://placeholder.com"><img src="https://via.placeholder.com/150.png?text=Place+holder+photo" class="card-img-top" alt="..."></a>
-
-                    <div class="card-body">
-
-                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.Name)</h5>
-
-                        @*<p class="card-text">@Html.DisplayFor(modelItem => item.DateOfBirth)</p>*@
-
-                        <a class="btn btn-primary" href="/character/details/@item.CharacterId" role="button">Details</a>
-
-                        <a class="btn btn-info" href="/character/edit/@item.CharacterId" role="button">Edit</a>
-
-                        <a class="btn btn-danger" href="/character/delete/@item.CharacterId" role="button">Delete</a>
-
+            <div class="col s12 m3">
+                <div class="card">
+                    <div class="card-image">
+                        <img src="~/images/character.jpg">
+                        <span class="card-title">@Html.DisplayFor(modelItem => item.Name)</span>
+                        <a class="btn-floating halfway-fab waves-effect waves-light orange" asp-area="" asp-controller="character" asp-action="edit" asp-route-id="@item.CharacterID"><i class="material-icons">create</i></a>
                     </div>
-
+                    <div class="card-content">
+                        <p>
+                            I am a very simple card. I am good at containing small bits of information.
+                            I am convenient because I require little markup to use effectively.
+                        </p>
+                    </div>
+                    <div class="card-action">
+                        <a class="button teal-text" asp-area="" asp-controller="character" asp-action="details" asp-route-id="@item.CharacterID" role="button">Details</a> | 
+                        <a class="button red-text" asp-area="" asp-controller="character" asp-action="delete" asp-route-id="@item.CharacterID" role="button">Delete</a>
+                    </div>
                 </div>
             </div>
-
         }
 
     </div>
 </div>
 <br />
-<table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.CharacterId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                @*<th>
-                    @Html.DisplayNameFor(model => model.DateOfBirth)
-                </th>*@
-                <th>
-                    @Html.DisplayNameFor(model => model.SweetRoleUserId)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-    @foreach (var item in Model) {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CharacterId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                @*<td>
-                    @Html.DisplayFor(modelItem => item.DateOfBirth)
-                </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.SweetRoleUserId)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                </td>
-            </tr>
-    }
-        </tbody>
-    </table>
+

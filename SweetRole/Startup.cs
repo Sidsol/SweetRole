@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SweetRole.Hubs;
 using SweetRole.Models;
 
 namespace SweetRole
@@ -33,11 +34,12 @@ namespace SweetRole
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddSignalR();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            //services.AddDbContext<SweetRoleContext>(options =>
-            //    options.UseSqlServer(Configuration.GetConnectionString("SweetRoleContext")));
+            services.AddDbContext<SweetRoleContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("SweetRoleContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +48,7 @@ namespace SweetRole
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
             else
             {
@@ -64,6 +67,15 @@ namespace SweetRole
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+            });
+            //app.UseSignalR(options =>
+            //{
+            //    options.MapHub<ChatHub>("/hub");
+            //});
+
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("/chatHub");
             });
         }
     }

@@ -7,11 +7,14 @@ namespace SweetRole.Models
 {
     public class Scene
     {
-        public int SceneId { get; set; }
+        public int SceneID { get; set; }
         public string Name { get; set; }
         public string Setting { get; set; }
 
         public int StoryID { get; set; }
         public virtual Story Story { get; set; }
+
+        public virtual ICollection<CharacterScene> CharacterScenes { get; set; }
+
     }
 }

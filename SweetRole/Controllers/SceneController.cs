@@ -35,8 +35,10 @@ namespace SweetRole.Controllers
                 return NotFound();
             }
 
-            var scene = await _context.Scenes
-                .FirstOrDefaultAsync(m => m.SceneId == id);
+            Scene scene = await _context.Scenes
+                .Include(s => s.CharacterScenes)
+                .FirstOrDefaultAsync(m => m.SceneID == id);
+
             if (scene == null)
             {
                 return NotFound();
@@ -45,11 +47,12 @@ namespace SweetRole.Controllers
             return View(scene);
         }
         // GET: Scene/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create(int? id)
         {
+            Story story = await _context.Stories
+                .FirstOrDefaultAsync(s => s.StoryID == id);
 
-            ViewData["StoryID"] = _context.Stories;
-            return View();
+            return View(new AddSceneViewModel(story));
         }
 
         // POST: Scene/Create
@@ -66,14 +69,13 @@ namespace SweetRole.Controllers
                 {
                     Name = addSceneViewModel.Name,
                     Setting = addSceneViewModel.Setting,
-                    StoryID = addSceneViewModel.StoryId
+                    StoryID = addSceneViewModel.StoryID
                 };
 
                 _context.Add(newScene);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", new { id = newScene.SceneID });
             }
-            ViewData["StoryID"] = _context.Stories;
             return View(addSceneViewModel);
 
         }
@@ -101,7 +103,7 @@ namespace SweetRole.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(int id, [Bind("Title")] Scene scene)
         {
-            if (id != scene.SceneId)
+            if (id != scene.SceneID)
             {
                 return NotFound();
             }
@@ -115,7 +117,7 @@ namespace SweetRole.Controllers
                 catch (DbUpdateConcurrencyException)
                 {
 
-                    if (!StoryExists(scene.SceneId))
+                    if (!StoryExists(scene.SceneID))
                     {
                         return NotFound();
                     }
@@ -138,7 +140,7 @@ namespace SweetRole.Controllers
             }
 
             var scene = await _context.Scenes
-                .FirstOrDefaultAsync(m => m.SceneId == id);
+                .FirstOrDefaultAsync(m => m.SceneID == id);
             if (scene == null)
             {
                 return NotFound();
@@ -162,7 +164,49 @@ namespace SweetRole.Controllers
 
         private bool StoryExists(int id)
         {
-            return _context.Scenes.Any(e => e.SceneId == id);
+            return _context.Scenes.Any(e => e.SceneID == id);
+        }
+        // GET: CharacterScene/Create
+        public async Task<ActionResult> AddCharacter(int id)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            Scene scene = _context.Scenes.Single(m => m.SceneID == id);
+            List<Character> characters = await _context.Characters.Where(c => c.SweetRoleUserId == userId).ToListAsync();
+
+            return View(new AddCharacterSceneViewModel(scene, characters));
+        }
+
+        // POST: CharacterScene/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddCharacter(AddCharacterSceneViewModel addCharacterSceneViewModel)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if (ModelState.IsValid)
+            {
+                var characterId = addCharacterSceneViewModel.CharacterID;
+                var sceneId = addCharacterSceneViewModel.SceneID;
+
+                ICollection<CharacterScene> existingItems = _context.CharacterScenes
+                    .Where(cs => cs.CharacterID == characterId)
+                    .Where(cs => cs.SceneID == sceneId).ToList();
+                if (existingItems.Count == 0)
+                {
+                    CharacterScene addCharacter = new CharacterScene
+                    {
+
+                        Character = _context.Characters.Single(c => c.CharacterID == characterId),
+                        Scene = _context.Scenes.Single(s => s.SceneID == sceneId)
+                    };
+
+                    _context.Add(addCharacter);
+                    await _context.SaveChangesAsync();
+                }
+                return RedirectToAction("Details", new { id = sceneId });
+            }
+            return View(addCharacterSceneViewModel);
+
         }
     }
 }
